@@ -53,6 +53,15 @@ class BbsController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->user_id = Auth::id(); // 認証ユーザーのIDを設定
+
+        // カテゴリの選択がある場合、最初のカテゴリを設定
+        if ($request->has('categories') && count($request->input('categories')) > 0) {
+            // カテゴリーは選択されているので、何もしない
+        } else {
+            // カテゴリが選択されていない場合の処理（エラーメッセージなど）
+            return redirect()->back()->withErrors(['categories' => '少なくとも1つのカテゴリを選択してください。']);
+        }
+
         $post->save(); // データベースに保存
 
         //カテゴリの関連付け
@@ -61,7 +70,7 @@ class BbsController extends Controller
         }
 
         //成功レスポンスを返す
-        return redirect()->back()->with('success', '投稿が成功しました。');
+        return redirect()->route('index')->with('success', '投稿が成功しました。');
     }
 
     //投稿削除

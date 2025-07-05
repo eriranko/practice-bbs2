@@ -17,10 +17,10 @@ class Category extends Model
         'description',
     ];
 
-    // 投稿とのリレーション
+    // 投稿との多対多リレーション
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(Post::class, 'category_post'); // 中間テーブルを指定
     }
 
 }

@@ -16,7 +16,6 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'category_id',
         'content',
         'like_count',
         'agree_count',
@@ -62,5 +61,11 @@ class Post extends Model
     public function getAgreeCountAttribute()
     {
         return $this->agrees()->count();
+    }
+
+    // カテゴリとの多対多リレーション
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_post');
     }
 }

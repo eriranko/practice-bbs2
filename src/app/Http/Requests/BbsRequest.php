@@ -24,10 +24,11 @@ class BbsRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'categories' => 'array',
-            'categories.*' => 'exists:categories,id', // カテゴリIDが存在するか確認
+            'title' => 'required|max:25',
+            'content' => 'required',
+            'categories' => 'array', // カテゴリーは配列として受け取る
+            'categories.*' => 'exists:categories,id', // 各カテゴリーIDが存在することを確認
         ];
     }
 }
+

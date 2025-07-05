@@ -10,15 +10,16 @@
         <h2>掲示板に投稿する</h2>
     </div>
     <div class="content-wrapper">
-        <form class="new-post" action="/post" method="post">
+        <form class="new-post" action="/posts" method="post">
             @csrf
             <div class="post__title">
                 <label for="title">タイトル：</label>
                 <input type="text" id="title" name="title">
             </div>
             <div class="post__categories">
+                <h3>カテゴリー：</h3>
                 @foreach ($categories as $category)
-                <label for="">
+                <label>
                     <input type="checkbox" name="categories[]" value="{{ $category->id }}"> {{$category->name}}
                 </label>
                 @endforeach
