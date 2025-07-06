@@ -23187,6 +23187,7 @@
     /******/
 })();
 
+//ここから記載
 // CSRFトークンを取得
 const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
