@@ -47,4 +47,28 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id'); // 親コメントに対する返信
     }
+
+    // いいねとのリレーション
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    // なるほどとのリレーション
+    public function agrees()
+    {
+        return $this->hasMany(Agree::class);
+    }
+
+    // いいねの数を取得するアクセサ
+    public function getLikesCountAttribute()
+    {
+        return $this->likes()->count();
+    }
+
+    // なるほどの数を取得するアクセサ
+    public function getAgreesCountAttribute()
+    {
+        return $this->agrees()->count();
+    }
 }

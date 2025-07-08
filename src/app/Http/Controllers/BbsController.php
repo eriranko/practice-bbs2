@@ -11,15 +11,18 @@ use Illuminate\Support\Facades\Auth;//Laravelの認証機能を使用するの�
 class BbsController extends Controller
 {
     //掲示板一覧表示ページ
-    public function index() {
+    public function index(Request $request) {
 
-        //Postsモデルを使って最新の３つのコメントを取得
+        //投稿を取得し、各投稿に対する最新のコメントを1件取得
         $posts = Post::with(['comments' => function ($query) {
             $query->whereNull('parent_id') // 親コメントがnullのコメントのみを取得
-                ->latest()
-                ->take(1); // 最新の3つのコメントを取得
-        }, 'comments.replies']) // コメントの返信も一緒に取得
-        ->get();
+                ->latest(); // 最新のコメントを取得
+        }])->get();
+
+        // 各投稿に対して最新のコメントを取得
+        foreach ($posts as $post) {
+            $post->latest_comment = $post->comments->first(); // 最新のコメントを追加
+        }
 
         //ビューにデータを渡す。
         return view('index', compact('posts'));
@@ -108,24 +111,21 @@ class BbsController extends Controller
             $like = Like::where('user_id', $user->id)->where('comment_id', $commentId)->first();
 
             if ($like) {
-                $like->delete(); // 既にいいねを押している場合は削除
-            } else {
-                Like::create(['user_id' => $user->id, 'comment_id' => $commentId]);
+                return response()->json(['success' => false, 'message' => 'すでにいいねしています。']);
             }
 
-            // 新しいいいねの数を取得
+            Like::create(['user_id' => $user->id, 'comment_id' => $commentId]);
             $likesCount = $comment->likes()->count(); // コメントに対するいいねの数を取得
         } else {
             // 投稿に対するいいね
             $like = Like::where('user_id', $user->id)->where('post_id', $postId)->first();
 
             if ($like) {
-                $like->delete(); // 既にいいねを押している場合は削除
-            } else {
-                Like::create(['user_id' => $user->id, 'post_id' => $postId]);
+                return response()->json(['success' => false, 'message' => 'すでにいいねしています。']);
             }
 
-            // 新しいいいねの数を取得
+            Like::create(['user_id' => $user->id, 'post_id' => $postId]);
+
             $likesCount = $post->likes()->count(); // 投稿に対するいいねの数を取得
         }
 
@@ -145,27 +145,31 @@ class BbsController extends Controller
             $agree = Agree::where('user_id', $user->id)->where('comment_id', $commentId)->first();
 
             if ($agree) {
-                $agree->delete(); // 既に「なるほど」を押している場合は削除
-            } else {
-                Agree::create(['user_id' => $user->id, 'comment_id' => $commentId]);
+                return response()->json(['success' => false, 'message' => 'すでに「なるほど」しています。']);
             }
 
-            // 新しい「なるほど」の数を取得
+            Agree::create(['user_id' => $user->id, 'comment_id' => $commentId]);
             $agreeCount = $comment->agrees()->count(); // コメントに対する「なるほど」の数を取得
         } else {
             // 投稿に対する「なるほど」
             $agree = Agree::where('user_id', $user->id)->where('post_id', $postId)->first();
 
             if ($agree) {
-                $agree->delete(); // 既に「なるほど」を押している場合は削除
-            } else {
-                Agree::create(['user_id' => $user->id, 'post_id' => $postId]);
+                return response()->json(['success' => false, 'message' => 'すでに「なるほど」しています。']);
             }
 
-            // 新しい「なるほど」の数を取得
+            Agree::create(['user_id' => $user->id, 'post_id' => $postId]);
             $agreeCount = $post->agrees()->count(); // 投稿に対する「なるほど」の数を取得
         }
 
         return response()->json(['success' => true, 'agree_count' => $agreeCount]); // agree_countを返す
     }
+
+    // 投稿詳細を表示
+    public function show($id)
+    {
+        $post = Post::with(['comments.replies', 'comments.likes', 'comments.agrees'])->findOrFail($id); // 投稿とそのコメント、返信を取得
+        return view('post', compact('post'));
+    }
+
 }

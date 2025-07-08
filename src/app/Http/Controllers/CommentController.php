@@ -37,8 +37,11 @@ class CommentController extends Controller
         // コメントの保存前にログを出力
         //Log::info('Saving comment: ', ['content' => $comment->content]);
 
-        // リダイレクトまたはJSONレスポンス
-        return response()->json(['success' => true, 'comment' => $comment]); // 適切なルートにリダイレクト
+        // 成功メッセージをセッションに保存
+        session()->flash('success', 'コメントが追加されました！');
+
+        // トップページにリダイレクト
+        return redirect()->route('index'); // トップページにリダイレクト
     }
 
     //コメントにいいねする

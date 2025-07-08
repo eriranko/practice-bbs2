@@ -1,9 +1,190 @@
+/* 全体のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff8e1; /* 明るい背景色 */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     max-width: 1230px;
     min-width: 600px;
     margin: 0 auto;
+    padding: 20px;
+    background-color: #ffedd5; /* 暖色系の背景 */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .content__title {
     text-align: center;
+    margin-bottom: 20px;
+}
+
+.post-frame {
+    margin-top: 20px;
+}
+
+.post {
+    background-color: #fff; /* 投稿の背景色 */
+    border: 1px solid #ffcc80; /* ボーダー色 */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+}
+
+.post:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.post__header {
+    margin-bottom: 10px;
+}
+
+.post__title {
+    font-size: 1.5em;
+    color: #d45d00; /* タイトルの色 */
+    text-decoration: none; /* リンクの下線を削除 */
+}
+
+.post__title a {
+    color: #d45d00; /* リンクの色 */
+}
+
+.post__nickname,
+.post__category,
+.post__create {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.post__content {
+    margin: 10px 0;
+}
+
+.post__attachment {
+    color: #d45d00; /* リンクの色 */
+    text-decoration: none;
+}
+
+.post__attachment:hover {
+    text-decoration: underline;
+}
+
+/* ボタンのスタイル */
+.like-post,
+.agree-post,
+.delete-post {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #ffab40; /* ボタンの背景色 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px; /* ボタンのパディングを調整 */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff8c00; /* ホバー時の色 */
+}
+
+/* コメントセクション */
+.comment__wrapper {
+    margin-top: 20px;
+    border-top: 1px solid #ffcc80;
+    padding-top: 10px;
+}
+
+.comment {
+    background-color: #fff3e0; /* コメントの背景色 */
+    border: 1px solid #ffcc80; /* コメントのボーダー */
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.comment__title {
+    margin: 5px;
+}
+
+.comment-button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* コメントへのボタンを横並びにする */
+.comment p {
+    display: flex;
+    align-items: center; /* 縦方向の中央揃え */
+    justify-content: flex-start; /* 左揃え */
+    margin: 0; /* マージンをリセット */
+}
+
+.delete__form {
+    display: inline-block;
+    flex-direction: row;
+}
+
+.reply__wrapper {
+    margin-top: 10px;
+    padding-left: 15px;
+    border-left: 2px solid #ffcc80;
+}
+
+.reply {
+    background-color: #ffe0b2; /* 返信の背景色 */
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+/* コメントボタンのスタイル */
+.like-button,
+.agree-button,
+.delete-button,
+.reply-toggle {
+    font-size: 0.8em;
+    padding: 5px 8px;
+    margin-right: 5px; /* ボタン間のマージン */
+    background-color: #ffab40; /* ボタンの背景色 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.like-button:hover,
+.agree-button:hover,
+.delete-button:hover,
+.reply-toggle:hover {
+    background-color: #ff8c00; /* ホバー時の色 */
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .post {
+        padding: 10px;
+    }
+
+    button {
+        padding: 6px 10px;
+    }
+
+    .reply__wrapper {
+        padding-left: 10px;
+    }
 }

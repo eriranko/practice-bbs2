@@ -17,8 +17,8 @@ class Post extends Model
         'user_id',
         'title',
         'content',
-        'like_count',
-        'agree_count',
+        //'like_count',
+        //'agree_count',
         'attachment',
     ];
 

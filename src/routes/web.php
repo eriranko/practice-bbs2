@@ -34,6 +34,9 @@ Route::middleware(['guest'])->group(function () {
 // ホーム画面表示
 Route::get('/', [BbsController::class, 'index'])->name('index');
 
+// 投稿詳細ページへのルート
+Route::get('/posts/{id}', [BbsController::class, 'show'])->name('posts.show');
+
 // 認証ミドルウェア適用
 Route::middleware(['auth'])->group(function () {
     // 新規投稿画面表示
@@ -48,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
     // 投稿に対するいいねのルート
     Route::post('/posts/{post}/like', [BbsController::class, 'like'])->name('posts.like');
 
-    //投稿に対するなるほどのルート
+    // 投稿に対するなるほどのルート
     Route::post('/posts/{post}/agree', [BbsController::class, 'agree'])->name('posts.agree');
 
     // コメントを保存する
@@ -59,6 +62,9 @@ Route::middleware(['auth'])->group(function () {
 
     // コメントの返信ルートを追加
     Route::post('/comments/{comment}/reply', [CommentController::class, 'reply'])->name('comments.reply');
+
+    // コメントへの返信を削除する
+    Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->name('replies.destroy');
 
     // コメントに「いいね」をする
     Route::post('/comments/{comment}/like', [BbsController::class, 'like'])->name('comments.like');
