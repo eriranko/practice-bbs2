@@ -103,6 +103,7 @@ class BbsController extends Controller
     public function like(Request $request, $postId, $commentId = null)
     {
         $user = Auth::user();
+        Log::info('Request received for like from user: ' . $user->id);
         $post = Post::findOrFail($postId);
 
         if ($commentId) {
@@ -125,7 +126,6 @@ class BbsController extends Controller
             }
 
             Like::create(['user_id' => $user->id, 'post_id' => $postId]);
-
             $likesCount = $post->likes()->count(); // 投稿に対するいいねの数を取得
         }
 
@@ -158,8 +158,8 @@ class BbsController extends Controller
                 return response()->json(['success' => false, 'message' => 'すでに「なるほど」しています。']);
             }
 
-            Agree::create(['user_id' => $user->id, 'post_id' => $postId]);
-            $agreeCount = $post->agrees()->count(); // 投稿に対する「なるほど」の数を取得
+        Agree::create(['user_id' => $user->id, 'post_id' => $postId]);
+        $agreeCount = $post->agrees()->count(); // 投稿に対する「なるほど」の数を取得
         }
 
         return response()->json(['success' => true, 'agree_count' => $agreeCount]); // agree_countを返す

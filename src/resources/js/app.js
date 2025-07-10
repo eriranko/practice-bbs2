@@ -37,6 +37,8 @@ function likePost(postId) {
 }
 
 function likeComment(commentId) {
+    const postId = document.querySelector(`.post[data-id="${commentId}"]`)
+        .dataset.id; // 親投稿のIDを取得
     fetch(`/comments/${commentId}/like`, {
         method: "POST",
         headers: {
@@ -53,9 +55,9 @@ function likeComment(commentId) {
                 );
                 if (likeCountElement) {
                     likeCountElement.textContent = data.likes_count.toString(); // 新しい「いいね」の数に更新
-                } else {
-                    alert(data.message); // すでにいいねしている場合のメッセージを表示
                 }
+            } else {
+                alert(data.message); // すでにいいねしている場合のメッセージを表示
             }
         })
         .catch((error) => console.error("Error:", error));
@@ -89,6 +91,8 @@ function agreePost(postId) {
 }
 
 function agreeComment(commentId) {
+    const postId = document.querySelector(`.post[data-id="${commentId}"]`)
+        .dataset.id; // 親投稿のIDを取得
     fetch(`/comments/${commentId}/agree`, {
         method: "POST",
         headers: {
@@ -105,9 +109,9 @@ function agreeComment(commentId) {
                 );
                 if (agreeCountElement) {
                     agreeCountElement.textContent = data.agree_count.toString(); // 新しい「なるほど」の数に更新
-                } else {
-                    alert(data.message); // すでに「なるほど」している場合のメッセージを表示
                 }
+            } else {
+                alert(data.message); // すでに「なるほど」している場合のメッセージを表示
             }
         })
         .catch((error) => console.error("Error:", error));
