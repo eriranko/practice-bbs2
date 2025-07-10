@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BbsController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\CreateNewUser;
 
 /*
@@ -71,4 +72,7 @@ Route::middleware(['auth'])->group(function () {
 
     // コメントに「なるほど」をする
     Route::post('/comments/{comment}/agree', [BbsController::class, 'agree'])->name('comments.agree');
+
+    // マイページを表示する
+    Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage')->middleware('auth');
 });

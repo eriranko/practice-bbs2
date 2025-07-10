@@ -44,7 +44,7 @@
                         <a class="header-nav__list" href="/create">投稿する</a>
                     </li>
                     <li class="header-nav__item">
-                        <a class="header-nav__list" href="/mypage">マイページ</a>
+                        <a class="header-nav__list" href="{{ route('mypage') }}">マイページ</a>
                     </li>
                     <li class="header-nav__item">
                         <form class="form" action="/logout" method="post">
