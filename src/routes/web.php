@@ -50,10 +50,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/posts/{id}', [BbsController::class, 'destroy'])->name('post.destroy');
 
     // 投稿に対するいいねのルート
-    Route::post('/posts/{post}/like', [BbsController::class, 'like'])->name('posts.like');
+    Route::post('/posts/{postId}/like', [BbsController::class, 'like'])->name('posts.like');
 
     // 投稿に対するなるほどのルート
-    Route::post('/posts/{post}/agree', [BbsController::class, 'agree'])->name('posts.agree');
+    Route::post('/posts/{postId}/agree', [BbsController::class, 'agree'])->name('posts.agree');
 
     // コメントを保存する
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
@@ -68,10 +68,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->name('replies.destroy');
 
     // コメントに「いいね」をする
-    Route::post('/comments/{comment}/like', [BbsController::class, 'like'])->name('comments.like');
+    Route::post('/comments/{commentId}/like', [BbsController::class, 'like'])->name('comments.like');
 
     // コメントに「なるほど」をする
-    Route::post('/comments/{comment}/agree', [BbsController::class, 'agree'])->name('comments.agree');
+    Route::post('/comments/{commentId}/agree', [BbsController::class, 'agree'])->name('comments.agree');
 
     // マイページを表示する
     Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage')->middleware('auth');
