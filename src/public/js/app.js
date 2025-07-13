@@ -19498,7 +19498,6 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("
 
 // いいね機能
 function likePost(postId) {
-  console.log("response.json likepost");
   fetch("/posts/".concat(postId, "/like"), {
     method: "POST",
     headers: {
@@ -19523,7 +19522,7 @@ function likePost(postId) {
   });
 }
 function likeComment(commentId) {
-  console.log("response.json likecomment");
+  var postId = document.querySelector(".post[data-id=\"".concat(commentId, "\"]")).dataset.id; // 親投稿のIDを取得
   fetch("/comments/".concat(commentId, "/like"), {
     method: "POST",
     headers: {
@@ -19538,9 +19537,9 @@ function likeComment(commentId) {
       var likeCountElement = document.getElementById("like-count-".concat(commentId));
       if (likeCountElement) {
         likeCountElement.textContent = data.likes_count.toString(); // 新しい「いいね」の数に更新
-      } else {
-        alert(data.message); // すでにいいねしている場合のメッセージを表示
       }
+    } else {
+      alert(data.message); // すでにいいねしている場合のメッセージを表示
     }
   })["catch"](function (error) {
     return console.error("Error:", error);
@@ -19549,7 +19548,6 @@ function likeComment(commentId) {
 
 // なるほど機能
 function agreePost(postId) {
-  console.log("response.json agreepost");
   fetch("/posts/".concat(postId, "/agree"), {
     method: "POST",
     headers: {
@@ -19571,7 +19569,7 @@ function agreePost(postId) {
   });
 }
 function agreeComment(commentId) {
-  console.log("response.json agreeComment");
+  var postId = document.querySelector(".post[data-id=\"".concat(commentId, "\"]")).dataset.id; // 親投稿のIDを取得
   fetch("/comments/".concat(commentId, "/agree"), {
     method: "POST",
     headers: {
@@ -19586,9 +19584,9 @@ function agreeComment(commentId) {
       var agreeCountElement = document.getElementById("agree-count-".concat(commentId));
       if (agreeCountElement) {
         agreeCountElement.textContent = data.agree_count.toString(); // 新しい「なるほど」の数に更新
-      } else {
-        alert(data.message); // すでに「なるほど」している場合のメッセージを表示
       }
+    } else {
+      alert(data.message); // すでに「なるほど」している場合のメッセージを表示
     }
   })["catch"](function (error) {
     return console.error("Error:", error);

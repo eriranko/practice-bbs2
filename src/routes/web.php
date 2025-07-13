@@ -38,6 +38,9 @@ Route::get('/', [BbsController::class, 'index'])->name('index');
 // 投稿詳細ページへのルート
 Route::get('/posts/{id}', [BbsController::class, 'show'])->name('posts.show');
 
+// ユーザーの投稿一覧を表示するルート
+Route::get('/users/{user}', [UserController::class, 'showPosts'])->name('users.posts');
+
 // 認証ミドルウェア適用
 Route::middleware(['auth'])->group(function () {
     // 新規投稿画面表示

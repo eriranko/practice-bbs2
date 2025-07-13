@@ -42,17 +42,26 @@
 
 .header-nav__inner {
     display: flex;
-    justify-content: right;
-    margin: 0px;
+    align-items: center; /* 縦の中央揃え */
+    justify-content: flex-end; /* 右寄せ */
+    margin: 0; /* マージンをリセット */
 }
 
 .header-nav__item {
-    display: flex;
+    margin-left: 15px; /* 各アイテムの間隔を設定 */
 }
 
 .header-nav__list {
-    padding-left: 15px;
-    text-decoration: none;
+    padding: 10px 15px; /* リンクのパディング */
+    text-decoration: none; /* 下線を消す */
+    color: rgb(239, 115, 32); /* テキストカラーを統一 */
+    background-color: transparent; /* 背景色を透明に */
+    border-radius: 5px; /* 角を丸くする */
+    transition: background-color 0.3s; /* ホバー時のトランジション */
+}
+
+.header-nav__list:hover {
+    background-color: rgba(239, 115, 32, 0.2); /* ホバー時の背景色 */
 }
 
 .header-nav__button {

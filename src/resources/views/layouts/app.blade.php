@@ -47,9 +47,9 @@
                         <a class="header-nav__list" href="{{ route('mypage') }}">マイページ</a>
                     </li>
                     <li class="header-nav__item">
-                        <form class="form" action="/logout" method="post">
+                        <a class="header-nav__list" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                        <form id="logout-form" action="/logout" method="POST" style="display: none;">
                             @csrf
-                            <button class="header-nav__button">ログアウト</button>
                         </form>
                     </li>
                 </ul>

@@ -18,7 +18,9 @@
                             <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
                         </h3>
                         <div class="post__nickname">
-                            <p class="post__nickname-inner">投稿者：{{ $post->user->nickname }}</p>
+                            <p class="post__nickname-inner">
+                                投稿者：<a href="{{ route('users.posts', $post->user->id) }}">{{ $post->user->nickname }}</a>
+                            </p>
                         </div>
                         <div class="post__category">
                             @if ($post->categories->isNotEmpty())

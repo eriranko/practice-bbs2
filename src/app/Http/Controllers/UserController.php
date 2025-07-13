@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -20,5 +21,14 @@ class UserController extends Controller
         'posts' => $posts,
         'nickname' => $user->nickname, // ニックネームをビューに渡す
         ]);
+    }
+
+    // 指定したユーザーの投稿を取得
+    public function showPosts(User $user)
+    {
+        // ユーザーの投稿を取得
+        $posts = $user->posts()->withCount(['likes', 'agrees'])->get();
+
+        return view('users.posts', compact('user', 'posts'));
     }
 }
